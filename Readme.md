@@ -1,6 +1,6 @@
 # An ASP.NET Core Web API CRUD Service
 
-When building a [Web API service](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1), it is convenient to separate your Controller's code from the data access logic. Not to deal with SQL, DB connections, etc. each time you need to extend your API, but use the database-independent object-oriented approach to retrieve data with sorting, filtering and complex data shaping.
+When building a [Web API service](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1), it is convenient to separate your Controller's code from the data access logic. Don't deal with SQL, DB connections, etc. each time you need to extend your API, but use the database-independent object-oriented approach to retrieve data with sorting, filtering and complex data shaping.
 
 The persistent object JSON serialization feature makes it easy to use XPO as a Data Access layer in an ASP.NET Core Web API service. You no longer need to manually format JSON responses or make a POCO copy of each persistent class. This tutorial demonstrates how to enable this feature and implement a few Controllers.
 
@@ -36,7 +36,7 @@ Use the following steps to create a project or refer to the [original tutorial](
         .UseEntityTypes(typeof(Customer), typeof(Order)));
   }
   ```
-* Call the Add[YourXPOModelName]SerializationOptions extension method to enabled the JSON serialization support.  
+* Call the Add[YourXPOModelName]SerializationOptions extension method to enable the JSON serialization support.  
  ```cs
  public void ConfigureServices(IServiceCollection services) {
     services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -55,7 +55,7 @@ Use the following steps to create a project or refer to the [original tutorial](
 		this.uow = uow;
 	}
  ```
-* GET methods implementation is simple and straighforward. Load object(s) from the database and return the result.  
+* GET methods implementation is simple and straightforward. Load object(s) from the database and return the result.  
  ```cs
  [HttpGet]
  public IEnumerable Get() {
