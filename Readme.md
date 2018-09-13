@@ -1,22 +1,22 @@
-#An ASP.NET Core Web API CRUD Service
+# An ASP.NET Core Web API CRUD Service
 
 When building a [Web API service](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1), it is convenient to separate your Controller's code from the data access logic. Not to deal with SQL, DB connections, etc. each time you need to extend your API, but use the database-independent object-oriented approach to retrieve data with sorting, filtering and complex data shaping.
 
 The persistent object JSON serialization feature makes it easy to use XPO as a Data Access layer in an ASP.NET Core Web API service. You no longer need to manually format JSON responses or make a POCO copy of each persistent class. This tutorial demonstrates how to enable this feature and implement a few Controllers.
 
-##Prerequisites
+## Prerequisites
  Visual Studio 2017 version 15.2.7 ot later with the following workloads:
  * ASP.NET and web development
  * .NET Core cross-platform development
- [.NET Core 2.1 SDK or later](https://www.microsoft.com/net/download)
+ * [.NET Core 2.1 SDK or later](https://www.microsoft.com/net/download)
  
-##Create the project.
+## Create the project.
 Use the following steps to create a project or refer to the [original tutorial](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1) in the Microsoft documentation.
 * From the **File** menu, select **New** > **Project**.
 * Select the **ASP.NET Core Web Application** template. Fill in the **Name** field and click the **OK** button.
 * In the **New ASP.NET Core Web Application - [YourProjectName]** dialog, choose the ASP.NET Core version. Select the **API** template and click **OK**.
 
-##Configure XPO
+## Configure XPO
 * Install [DevExpress.XPO](https://www.nuget.org/packages/DevExpress.Xpo/) Nuget package.  
   `Install-Package DevExpress.Xpo`
 * Use the [ORM Data Model Wizard](https://documentation.devexpress.com/CoreLibraries/14810) to create the data model or generate it from the existing database. This step is required, because the ORM Data Model Wizard adds extension methods that will be used later in this tutorial.
@@ -44,7 +44,7 @@ Use the following steps to create a project or refer to the [original tutorial](
  // ..
  ```
  
-##Create a Controller
+## Create a Controller
 * Declare a local variable to store the [UnitOfWork](https://documentation.devexpress.com/CoreLibraries/2138) instance passed as a constructor parameter.
  ```cs
  [ApiController]
