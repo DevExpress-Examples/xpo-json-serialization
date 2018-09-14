@@ -59,8 +59,7 @@ Use the following steps to create a project or refer to the [original tutorial](
  ```cs
  [HttpGet]
  public IEnumerable Get() {
-	return uow.Query<Customer>()
-		.Select(c => new { c.Oid, c.ContactName });
+	return uow.Query<Customer>();
  } 
  [HttpGet("{id}")]
  public Customer Get(int id) {
