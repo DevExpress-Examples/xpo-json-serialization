@@ -22,7 +22,7 @@ namespace XpoSerialization
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddDxSampleModelJsonOptions();
             services.AddCors();
-            services.AddXpoDefaultUnitOfWork(true, options =>
+            services.AddDxSampleModelUnitOfWork(true, options =>
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                 // .UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(typeof(Customer), typeof(Order)));

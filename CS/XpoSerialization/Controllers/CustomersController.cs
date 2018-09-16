@@ -10,13 +10,12 @@ namespace XpoSerialization.Controllers {
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase {
         private UnitOfWork uow;
-        public CustomersController(UnitOfWork uow) {
+        public CustomersController(DxSampleModelUnitOfWork uow) {
             this.uow = uow;
         }
         [HttpGet]
         public IEnumerable Get() {
-            return uow.Query<Customer>()
-                .Select(c => new { c.Oid, c.ContactName });
+            return uow.Query<Customer>();
         }
         [HttpGet("{id}")]
         public Customer Get(int id) {
