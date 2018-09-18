@@ -10,7 +10,7 @@ namespace XpoSerialization.Controllers {
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase {
         private UnitOfWork uow;
-        public CustomersController(DxSampleModelUnitOfWork uow) {
+        public CustomersController(UnitOfWork uow) {
             this.uow = uow;
         }
         [HttpGet]
