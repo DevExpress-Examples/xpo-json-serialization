@@ -31,7 +31,7 @@ Use the following steps to create a project or refer to the [original tutorial](
   ```cs
   public void ConfigureServices(IServiceCollection services) {
     services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-    services.AddXpoDefaultUnitOfWork(true, options =>
+    services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
         options.UseConnectionString(Configuration.GetConnectionString("MsSqlServer"))
         .UseEntityTypes(typeof(Customer), typeof(Order)));
   }
