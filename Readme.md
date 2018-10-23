@@ -33,7 +33,7 @@ Use the following steps to create a project or refer to the [original tutorial](
     services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
         options.UseConnectionString(Configuration.GetConnectionString("MsSqlServer"))
-        .UseEntityTypes(typeof(Customer), typeof(Order)));
+        .UseEntityTypes((ConnectionHelper.GetPersistentTypes()));
   }
   ```
 * Call the Add[YourXPOModelName]SerializationOptions extension method to enable the JSON serialization support.  
