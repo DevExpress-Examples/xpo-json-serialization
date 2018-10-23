@@ -25,7 +25,7 @@ namespace XpoSerialization
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                 // .UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
-                .UseEntityTypes(typeof(Customer), typeof(Order)));
+                .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
