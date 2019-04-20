@@ -28,20 +28,20 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DxSampleModelXpoServiceCollectionExtensions
     {
-        public static IServiceCollection AddDxSampleModelAsXpoDefaultUnitOfWork(this IServiceCollection serviceCollection, bool useDataLayerAsSingletone = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
+        public static IServiceCollection AddDxSampleModelAsXpoDefaultUnitOfWork(this IServiceCollection serviceCollection, bool useDataLayerAsSingleton = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
         {
             Action<DataLayerOptionsBuilder> optionsBuilder = CreateDataLayerOptionsBuilder(customDataLayerOptionsBuilder);
-            return serviceCollection.AddXpoDefaultUnitOfWork(useDataLayerAsSingletone, optionsBuilder);
+            return serviceCollection.AddXpoDefaultUnitOfWork(useDataLayerAsSingleton, optionsBuilder);
         }
-        public static IServiceCollection AddDxSampleModelAsXpoDefaultSession(this IServiceCollection serviceCollection, bool useDataLayerAsSingletone = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
+        public static IServiceCollection AddDxSampleModelAsXpoDefaultSession(this IServiceCollection serviceCollection, bool useDataLayerAsSingleton = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
         {
             Action<DataLayerOptionsBuilder> optionsBuilder = CreateDataLayerOptionsBuilder(customDataLayerOptionsBuilder);
-            return serviceCollection.AddXpoDefaultSession(useDataLayerAsSingletone, optionsBuilder);
+            return serviceCollection.AddXpoDefaultSession(useDataLayerAsSingleton, optionsBuilder);
         }
-        public static IServiceCollection AddDxSampleModelUnitOfWork(this IServiceCollection serviceCollection, bool useDataLayerAsSingletone = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
+        public static IServiceCollection AddDxSampleModelUnitOfWork(this IServiceCollection serviceCollection, bool useDataLayerAsSingleton = true, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
         {
             Action<DataLayerOptionsBuilder> optionsBuilder = CreateDataLayerOptionsBuilder(customDataLayerOptionsBuilder);
-            return serviceCollection.AddXpoCustomSession<DxSampleModelUnitOfWork>(useDataLayerAsSingletone, optionsBuilder);
+            return serviceCollection.AddXpoCustomSession<DxSampleModelUnitOfWork>(useDataLayerAsSingleton, optionsBuilder);
         }
         public static IServiceCollection AddDxSampleModelXpoDefaultDataLayer(this IServiceCollection serviceCollection, ServiceLifetime lifetime, Action<DataLayerOptionsBuilder> customDataLayerOptionsBuilder = null)
         {
