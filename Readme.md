@@ -4,6 +4,11 @@ When building a [Web API service](https://docs.microsoft.com/en-us/aspnet/core/t
 
 The persistent object JSON serialization feature makes it easy to use XPO as a Data Access layer in an ASP.NET Core Web API service. You no longer need to manually format JSON responses or make a POCO copy of each persistent class. This tutorial demonstrates how to enable this feature and implement a few Controllers.
 
+You may also be interested in the following examples:
+* [How to Implement OData v4 Service with XPO (.NET Core)](https://github.com/DevExpress-Examples/XPO_how-to-implement-odata4-service-with-xpo-netcore)
+* [How to Implement OData v4 Service with XPO (.NET Framework)](https://github.com/DevExpress-Examples/XPO_how-to-implement-odata4-service-with-xpo)
+
+
 ## Prerequisites
  Visual Studio 2017 version 15.2.7 ot later with the following workloads:
  * ASP.NET and web development
