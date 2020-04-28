@@ -29,75 +29,75 @@ Use the following steps to create a project or refer to the [original tutorial](
    `Microsoft.AspNetCore.Mvc.NewtonsoftJson`
 * Use the [ORM Data Model Wizard](https://documentation.devexpress.com/CoreLibraries/14810) to create the data model or generate it from the existing database. This step is required, because the ORM Data Model Wizard adds extension methods that will be used later in this tutorial.
 * Add the connection string to the *appsettings.json* file.  
- ```json
- "ConnectionStrings": {
-   "SQLite": "XpoProvider=SQLite;Data Source=demo.db",
-   "MSSqlServer": "XpoProvider=MSSqlServer;data source=(local);user id=sa;password=;initial catalog=XpoASPNETCoreDemo;Persist Security Info=true"
- }
- ```
+   ```json
+   "ConnectionStrings": {
+      "SQLite": "XpoProvider=SQLite;Data Source=demo.db",
+      "MSSqlServer": "XpoProvider=MSSqlServer;data source=(local);user id=sa;password=;initial catalog=XpoASPNETCoreDemo;Persist Security Info=true"
+   }
+   ```
 * Open the *Startup.cs* file and register the UnitOfWork Service as described in [ASP.NET Core Dependency Injection in XPO](https://www.devexpress.com/Support/Center/Question/Details/T637597).  
-  ```cs
-  public void ConfigureServices(IServiceCollection services) {
-     services.AddControllersWithViews();
-     services.AddCors();
-     services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
+   ```cs
+   public void ConfigureServices(IServiceCollection services) {
+      services.AddControllersWithViews();
+      services.AddCors();
+      services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
          options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
          // .UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
          .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
-  }
-  ```
+   }
+   ```
 * Call the AddNewtonsoftJson and Add[YourXPOModelName]SerializationOptions extension methods to enable the JSON serialization support.  
- ```cs
- public void ConfigureServices(IServiceCollection services) {
-    services.AddControllersWithViews()
-        .AddNewtonsoftJson()
-        .AddDxSampleModelJsonOptions();
- // ..
- ```
+   ```cs
+   public void ConfigureServices(IServiceCollection services) {
+      services.AddControllersWithViews()
+         .AddNewtonsoftJson()
+         .AddDxSampleModelJsonOptions();
+   // ..
+   ```
  
 ## Create a Controller
 * Declare a local variable to store the [UnitOfWork](https://documentation.devexpress.com/CoreLibraries/2138) instance passed as a constructor parameter.
- ```cs
- [ApiController]
- [Route("api/[controller]")]
- public class CustomersController : ControllerBase {
-	private UnitOfWork uow;
-	public CustomersController(UnitOfWork uow) {
-		this.uow = uow;
-	}
- ```
+   ```cs
+   [ApiController]
+   [Route("api/[controller]")]
+   public class CustomersController : ControllerBase {
+      private UnitOfWork uow;
+      public CustomersController(UnitOfWork uow) {
+         this.uow = uow;
+      }
+   ```
 * GET methods implementation is simple and straightforward. Load object(s) from the database and return the result.  
- ```cs
- [HttpGet]
- public IEnumerable Get() {
-	return uow.Query<Customer>();
- } 
- [HttpGet("{id}")]
- public Customer Get(int id) {
-	return uow.GetObjectByKey<Customer>(id);
- }
- ```
+   ```cs
+   [HttpGet]
+   public IEnumerable Get() {
+      return uow.Query<Customer>();
+   } 
+   [HttpGet("{id}")]
+   public Customer Get(int id) {
+     return uow.GetObjectByKey<Customer>(id);
+   }
+   ```
 * The POST method creates a new persistent object and saves it to the database. To parse JSON data, declare a method parameter of the [JObject](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm) type.
- ```cs
- [HttpPost]
- public void Post([FromBody]JObject values) {
-	Customer customer = new Customer(uow);
-	customer.ContactName = values["ContactName"].Value<string>();
-	uow.CommitChanges();
- }
- ```
+   ```cs
+   [HttpPost]
+   public void Post([FromBody]JObject values) {
+      Customer customer = new Customer(uow);
+      customer.ContactName = values["ContactName"].Value<string>();
+      uow.CommitChanges();
+   }
+   ```
 * The PUT and DELETE methods do not require any special remarks.
- ```cs
- [HttpPut("{id}")]
- public void Put(int id, [FromBody]JObject value) {
-	Customer customer = uow.GetObjectByKey<Customer>(id);
-	customer.ContactName = value["ContactName"].Value<string>();
-	uow.CommitChanges();
- }
- [HttpDelete("{id}")]
- public void Delete(int id) {
-	Customer customer = uow.GetObjectByKey<Customer>(id);
-	uow.Delete(customer);
-	uow.CommitChanges();
- }
- ```
+   ```cs
+   [HttpPut("{id}")]
+   public void Put(int id, [FromBody]JObject value) {
+      Customer customer = uow.GetObjectByKey<Customer>(id);
+      customer.ContactName = value["ContactName"].Value<string>();
+      uow.CommitChanges();
+   }
+   [HttpDelete("{id}")]
+   public void Delete(int id) {
+      Customer customer = uow.GetObjectByKey<Customer>(id);
+      uow.Delete(customer);
+      uow.CommitChanges();
+   }
+   ```
