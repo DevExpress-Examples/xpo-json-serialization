@@ -23,9 +23,10 @@ Use the following steps to create a project or refer to the [original tutorial](
 
 ## Configure XPO
 * Install [DevExpress.XPO](https://www.nuget.org/packages/DevExpress.Xpo/) Nuget package.  
-  `Install-Package DevExpress.Xpo`
+   `Install-Package DevExpress.Xpo`
 * Install [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson) Nuget package.
-  `Microsoft.AspNetCore.Mvc.NewtonsoftJson`
+
+   `Microsoft.AspNetCore.Mvc.NewtonsoftJson`
 * Use the [ORM Data Model Wizard](https://documentation.devexpress.com/CoreLibraries/14810) to create the data model or generate it from the existing database. This step is required, because the ORM Data Model Wizard adds extension methods that will be used later in this tutorial.
 * Add the connection string to the *appsettings.json* file.  
  ```json
