@@ -13,47 +13,38 @@ using DevExpress.Data.Filtering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-namespace XpoSerialization.DxSampleModel
-{
-    public static class ConnectionHelper
-    {
+using Microsoft.Extensions.Configuration;
+namespace XpoSerialization.DxSampleModel {
+    public static class ConnectionHelper {
         static Type[] persistentTypes = new Type[] {
             typeof(Customer),
             typeof(Order)
         };
-        public static Type[] GetPersistentTypes()
-        {
+        public static Type[] GetPersistentTypes() {
             Type[] copy = new Type[persistentTypes.Length];
             Array.Copy(persistentTypes, copy, persistentTypes.Length);
             return copy;
         }
-        public const string ConnectionString = @"XpoProvider=MSSqlServer;data source=uriah,1433;user id=sa;password=dx;initial catalog=DxSampleModel;Persist Security Info=true";
-        public static void Connect(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption, bool threadSafe = false)
-        {
-            if (threadSafe)
-            {
-                var provider = XpoDefault.GetConnectionProvider(ConnectionString, autoCreateOption);
+        public const string ConnectionStringName = "MSSqlServer";
+        public static void Connect(IConfiguration configuration, DevExpress.Xpo.DB.AutoCreateOption autoCreateOption, bool threadSafe = false) {
+            if(threadSafe) {
+                var provider = GetConnectionProvider(configuration, autoCreateOption);
                 var dictionary = new DevExpress.Xpo.Metadata.ReflectionDictionary();
                 dictionary.GetDataStoreSchema(persistentTypes);
                 XpoDefault.DataLayer = new ThreadSafeDataLayer(dictionary, provider);
-            }
-            else
-            {
-                XpoDefault.DataLayer = XpoDefault.GetDataLayer(ConnectionString, autoCreateOption);
+            } else {
+                XpoDefault.DataLayer = XpoDefault.GetDataLayer(configuration.GetConnectionString(ConnectionStringName), autoCreateOption);
             }
             XpoDefault.Session = null;
         }
-        public static DevExpress.Xpo.DB.IDataStore GetConnectionProvider(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption)
-        {
-            return XpoDefault.GetConnectionProvider(ConnectionString, autoCreateOption);
+        public static DevExpress.Xpo.DB.IDataStore GetConnectionProvider(IConfiguration configuration, DevExpress.Xpo.DB.AutoCreateOption autoCreateOption) {
+            return XpoDefault.GetConnectionProvider(configuration.GetConnectionString(ConnectionStringName), autoCreateOption);
         }
-        public static DevExpress.Xpo.DB.IDataStore GetConnectionProvider(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption, out IDisposable[] objectsToDisposeOnDisconnect)
-        {
-            return XpoDefault.GetConnectionProvider(ConnectionString, autoCreateOption, out objectsToDisposeOnDisconnect);
+        public static DevExpress.Xpo.DB.IDataStore GetConnectionProvider(IConfiguration configuration, DevExpress.Xpo.DB.AutoCreateOption autoCreateOption, out IDisposable[] objectsToDisposeOnDisconnect) {
+            return XpoDefault.GetConnectionProvider(configuration.GetConnectionString(ConnectionStringName), autoCreateOption, out objectsToDisposeOnDisconnect);
         }
-        public static IDataLayer GetDataLayer(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption)
-        {
-            return XpoDefault.GetDataLayer(ConnectionString, autoCreateOption);
+        public static IDataLayer GetDataLayer(IConfiguration configuration, DevExpress.Xpo.DB.AutoCreateOption autoCreateOption) {
+            return XpoDefault.GetDataLayer(configuration.GetConnectionString(ConnectionStringName), autoCreateOption);
         }
     }
 

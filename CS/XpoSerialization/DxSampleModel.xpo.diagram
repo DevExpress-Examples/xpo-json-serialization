@@ -18,7 +18,7 @@
         <elementListCompartment Id="5b4a90cd-b548-44df-ba5c-34467626ad52" absoluteBounds="5.015, 3.5979850260416666, 1.4700000000000002, 0.2493896484375" name="Collections" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </xpObjectShape>
-    <simpleAssociationConnector Id="adc30a74-c3e0-4f5e-9d5c-ce0b2071f6c4" edgePoints="[(3.32291662693024 : 2.77096921841304); (5 : 2.77096921841304)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <simpleAssociationConnector Id="adc30a74-c3e0-4f5e-9d5c-ce0b2071f6c4" edgePoints="[(3.32291662693024 : 2.77096921841304); (5 : 2.77096921841304)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <simpleAssociationMoniker Id="5f2720ba-2cad-4f1f-8382-02f6e8dc3116" />
       <relativeChildShapes />
       <nodes>
