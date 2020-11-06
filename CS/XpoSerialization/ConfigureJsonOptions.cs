@@ -1,23 +1,14 @@
-﻿using DevExpress.Xpo;
-using DevExpress.Xpo.Helpers;
+﻿using DevExpress.Xpo.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
 using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace XpoSerialization {
-
-
-   
 
     internal class ConfigureJsonOptions : IConfigureOptions<JsonOptions>, IServiceProvider {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IServiceProvider _serviceProvider;
-
-
 
         public ConfigureJsonOptions(
             IHttpContextAccessor httpContextAccessor,
@@ -25,8 +16,6 @@ namespace XpoSerialization {
             _httpContextAccessor = httpContextAccessor;
             _serviceProvider = serviceProvider;
         }
-
-
 
         public void Configure(JsonOptions options) {
             options.JsonSerializerOptions.Converters.Add(new PersistentBaseConverterFactory(this));

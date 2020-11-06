@@ -73,7 +73,8 @@ Use the following steps to create a project or refer to the [original tutorial](
         [HttpPost]
         public void Post([FromBody] Customer customer) {
             uow.CommitChanges();
-        }   ```
+        }   
+```
 * The PUT and DELETE methods do not require any special remarks.
    ```cs
         [HttpPut("{id}")]
@@ -86,4 +87,5 @@ Use the following steps to create a project or refer to the [original tutorial](
             Customer customer = uow.GetObjectByKey<Customer>(id);
             uow.Delete(customer);
             uow.CommitChanges();
-        }   ```
+        }   
+```

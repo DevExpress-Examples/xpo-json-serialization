@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using XpoSerialization.DxSampleModel;
-using System.Linq;
 
 namespace XpoSerialization.Controllers {
     [ApiController]
