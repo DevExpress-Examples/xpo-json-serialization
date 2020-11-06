@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using XpoSerialization.DxSampleModel;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace XpoSerialization.Controllers {
     [ApiController]
@@ -22,15 +21,11 @@ namespace XpoSerialization.Controllers {
             return uow.GetObjectByKey<Customer>(id);
         }
         [HttpPost]
-        public void Post([FromBody]JObject values) {
-            Customer customer = new Customer(uow);
-            customer.ContactName = values["ContactName"].Value<string>();
+        public void Post([FromBody] Customer customer) {
             uow.CommitChanges();
         }
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]JObject value) {
-            Customer customer = uow.GetObjectByKey<Customer>(id);
-            customer.ContactName = value["ContactName"].Value<string>();
+        public void Put(int id, [FromBody] Customer customer) {
             uow.CommitChanges();
         }
         [HttpDelete("{id}")]
