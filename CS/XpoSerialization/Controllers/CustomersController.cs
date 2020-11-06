@@ -1,9 +1,8 @@
 ﻿using DevExpress.Xpo;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using XpoSerialization.DxSampleModel;
-using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace XpoSerialization.Controllers {
     [ApiController]
@@ -22,23 +21,35 @@ namespace XpoSerialization.Controllers {
             return uow.GetObjectByKey<Customer>(id);
         }
         [HttpPost]
-        public void Post([FromBody]JObject values) {
-            Customer customer = new Customer(uow);
-            customer.ContactName = values["ContactName"].Value<string>();
-            uow.CommitChanges();
+        public IActionResult Post([FromBody] Customer customer) {
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exception) {
+                return BadRequest(exception);
+            }
         }
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]JObject value) {
-            Customer customer = uow.GetObjectByKey<Customer>(id);
-            customer.ContactName = value["ContactName"].Value<string>();
-            uow.CommitChanges();
+        public IActionResult Put(int id, [FromBody] Customer customer) {
+            if(id != customer.Oid)
+                return NotFound();
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exception) {
+                return BadRequest(exception);
+            }
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            Customer customer = uow.GetObjectByKey<Customer>(id);
-            uow.Delete(customer);
-            uow.CommitChanges();
+        public IActionResult Delete(int id) {
+            try {
+                Customer customer = uow.GetObjectByKey<Customer>(id);
+                uow.Delete(customer);
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exception) {
+                return BadRequest(exception);
+            }
         }
     }
 }
