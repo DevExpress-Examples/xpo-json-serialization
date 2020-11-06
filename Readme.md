@@ -87,8 +87,8 @@ Use the following steps to create a project or refer to the [original tutorial](
             try {
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         } 
  
@@ -104,8 +104,8 @@ Use the following steps to create a project or refer to the [original tutorial](
             try {
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         }
         [HttpDelete("{id}")]
@@ -115,8 +115,8 @@ Use the following steps to create a project or refer to the [original tutorial](
                 uow.Delete(customer);
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         } 
 

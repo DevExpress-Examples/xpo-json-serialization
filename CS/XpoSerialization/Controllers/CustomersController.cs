@@ -25,8 +25,8 @@ namespace XpoSerialization.Controllers {
             try {
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         }
         [HttpPut("{id}")]
@@ -36,8 +36,8 @@ namespace XpoSerialization.Controllers {
             try {
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         }
         [HttpDelete("{id}")]
@@ -47,8 +47,8 @@ namespace XpoSerialization.Controllers {
                 uow.Delete(customer);
                 uow.CommitChanges();
                 return NoContent();
-            } catch(Exception exeption) {
-                return BadRequest(exeption);
+            } catch(Exception exception) {
+                return BadRequest(exception);
             }
         }
     }
