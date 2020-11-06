@@ -25,8 +25,8 @@ namespace XpoSerialization
             services.AddCors();
             services.AddHttpContextAccessor();
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
-                options.UseConnectionString(MSSqlConnectionProvider.GetConnectionString(".", "XPOUnitTests_2_0"))  //Configuration.GetConnectionString("MSSqlServer"))
-                 .UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
+                options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
+                 //.UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
             services.ConfigureOptions<ConfigureJsonOptions>();
             services.AddSingleton(typeof(IModelMetadataProvider), typeof(XpoMetadataProvider));
