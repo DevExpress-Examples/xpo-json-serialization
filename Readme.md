@@ -82,42 +82,42 @@ Use the following steps to create a project or refer to the [original tutorial](
    ```
 * The POST method creates a new persistent object and saves it to the database. To parse JSON data, declare a method parameter of the [JObject](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm) type.
    ```cs
-        [HttpPost]
-        public IActionResult Post([FromBody] Customer customer) {
-            try {
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
-            }
-        } 
+   [HttpPost]
+   public IActionResult Post([FromBody] Customer customer) {
+      try {
+         uow.CommitChanges();
+         return NoContent();
+      } catch(Exception exception) {
+         return BadRequest(exception);
+      }
+   } 
  
    ```
 * The PUT and DELETE methods do not require any special remarks.
 
    ```cs
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Customer customer) {
-            if(id != customer.Oid)
-                return NotFound();
-            try {
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
-            }
-        }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
-            try {
-                Customer customer = uow.GetObjectByKey<Customer>(id);
-                uow.Delete(customer);
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
-            }
-        } 
+   [HttpPut("{id}")]
+   public IActionResult Put(int id, [FromBody] Customer customer) {
+      if(id != customer.Oid)
+         return NotFound();
+      try {
+         uow.CommitChanges();
+         return NoContent();
+      } catch(Exception exception) {
+         return BadRequest(exception);
+      }
+   }
+   [HttpDelete("{id}")]
+   public IActionResult Delete(int id) {
+      try {
+         Customer customer = uow.GetObjectByKey<Customer>(id);
+         uow.Delete(customer);
+         uow.CommitChanges();
+         return NoContent();
+      } catch(Exception exception) {
+         return BadRequest(exception);
+      }
+   } 
 
    ```
