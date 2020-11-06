@@ -24,7 +24,7 @@ Use the following steps to create a project or refer to the [original tutorial](
 ## Configure XPO
 * Install [DevExpress.XPO](https://www.nuget.org/packages/DevExpress.Xpo/) Nuget package.  
    `Install-Package DevExpress.Xpo`
-* Use the [ORM Data Model Wizard](https://documentation.devexpress.com/CoreLibraries/14810) to create the data model or generate it from the existing database. This step is required, because the ORM Data Model Wizard adds extension methods that will be used later in this tutorial.
+* Use the [ORM Data Model Wizard](https://documentation.devexpress.com/CoreLibraries/14810) to create the data model or generate it from the existing database.
 * Add the connection string to the *appsettings.json* file.  
    ```json
    "ConnectionStrings": {
@@ -57,7 +57,7 @@ Use the following steps to create a project or refer to the [original tutorial](
 
    ```
 
-* Add [JsonConverters.cs](CS/XpoSerialization/JsonConverters.cs), [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) files to your project. It will help System.Text.Json to support XPO classes. 
+* Add [JsonConverters.cs](CS/XpoSerialization/JsonConverters.cs), [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) files to your project. 
 ## Create a Controller
 * Declare a local variable to store the [UnitOfWork](https://documentation.devexpress.com/CoreLibraries/2138) instance passed as a constructor parameter.
    ```cs
@@ -80,7 +80,7 @@ Use the following steps to create a project or refer to the [original tutorial](
      return uow.GetObjectByKey<Customer>(id);
    }
    ```
-* The POST method creates a new persistent object and saves it to the database. To parse JSON data, declare a method parameter of the [JObject](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm) type.
+* The POST method creates a new persistent object and saves it to the database.
    ```cs
    [HttpPost]
    public IActionResult Post([FromBody] Customer customer) {
