@@ -35,14 +35,13 @@ Use the following steps to create a project or refer to the [original tutorial](
 * Open the *Startup.cs* file and register the UnitOfWork Service as described in [ASP.NET Core Dependency Injection in XPO](https://www.devexpress.com/Support/Center/Question/Details/T637597).  
    ```cs
    public void ConfigureServices(IServiceCollection services) {
-      services.AddControllersWithViews();
+            services.AddControllersWithViews();
             services.AddCors();
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                  //.UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
-    //...
-
+            //...
    }
 
    ``` 
