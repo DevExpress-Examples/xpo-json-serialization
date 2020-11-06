@@ -41,16 +41,21 @@ Use the following steps to create a project or refer to the [original tutorial](
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                  //.UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
-//...
+    //...
+
    }
+
    ``` 
+
 * In the *Startup.cs* also register custom Json converter and Metadata provider. 
     ```cs
+
             //...
             services.AddHttpContextAccessor();
             services.ConfigureOptions<ConfigureJsonOptions>();
             services.AddSingleton(typeof(IModelMetadataProvider), typeof(XpoMetadataProvider));
             //...
+
    ```
 
 * Add [JsonConverters.cs](CS/XpoSerialization/JsonConverters.cs), [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) files to your project. It will help System.Text.Json to support XPO classes. 
