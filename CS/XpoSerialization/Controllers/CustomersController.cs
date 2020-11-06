@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpo;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using XpoSerialization.DxSampleModel;
 
@@ -20,19 +21,35 @@ namespace XpoSerialization.Controllers {
             return uow.GetObjectByKey<Customer>(id);
         }
         [HttpPost]
-        public void Post([FromBody] Customer customer) {
-            uow.CommitChanges();
+        public IActionResult Post([FromBody] Customer customer) {
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
         }
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Customer customer) {
-            uow.CommitChanges();
+        public IActionResult Put(int id, [FromBody] Customer customer) {
+            if(id != customer.Oid)
+                return NotFound();
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            Customer customer = uow.GetObjectByKey<Customer>(id);
-            uow.Delete(customer);
-            uow.CommitChanges();
+        public IActionResult Delete(int id) {
+            try {
+                Customer customer = uow.GetObjectByKey<Customer>(id);
+                uow.Delete(customer);
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
         }
     }
 }

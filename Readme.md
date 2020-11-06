@@ -83,9 +83,14 @@ Use the following steps to create a project or refer to the [original tutorial](
 * The POST method creates a new persistent object and saves it to the database. To parse JSON data, declare a method parameter of the [JObject](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm) type.
    ```cs
         [HttpPost]
-        public void Post([FromBody] Customer customer) {
-            uow.CommitChanges();
-        }  
+        public IActionResult Post([FromBody] Customer customer) {
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
+        } 
  
    ```
 * The PUT and DELETE methods do not require any special remarks.
@@ -93,15 +98,26 @@ Use the following steps to create a project or refer to the [original tutorial](
    ```cs
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Customer customer) {
-            uow.CommitChanges();
+        public IActionResult Put(int id, [FromBody] Customer customer) {
+            if(id != customer.Oid)
+                return NotFound();
+            try {
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            Customer customer = uow.GetObjectByKey<Customer>(id);
-            uow.Delete(customer);
-            uow.CommitChanges();
-        }   
+        public IActionResult Delete(int id) {
+            try {
+                Customer customer = uow.GetObjectByKey<Customer>(id);
+                uow.Delete(customer);
+                uow.CommitChanges();
+                return NoContent();
+            } catch(Exception exeption) {
+                return BadRequest(exeption);
+            }
+        } 
 
    ```
