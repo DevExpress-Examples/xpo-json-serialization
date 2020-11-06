@@ -46,7 +46,7 @@ Use the following steps to create a project or refer to the [original tutorial](
 
    ``` 
 
-* In the *Startup.cs* also register custom Json converter and Metadata provider. 
+* In the *Startup.cs* also register custom JSON converter and Metadata provider Services. 
     ```cs
 
             //...
