@@ -37,15 +37,19 @@ Use the following steps to create a project or refer to the [original tutorial](
    public void ConfigureServices(IServiceCollection services) {
       services.AddControllersWithViews();
             services.AddCors();
-            services.AddHttpContextAccessor();
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                  //.UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
-            services.ConfigureOptions<ConfigureJsonOptions>();
-            services.AddSingleton(typeof(IModelMetadataProvider), typeof(XpoMetadataProvider));
    }
    ``` 
+* In the *Startup.cs* also register custom Json converter and Metadata provider. 
+    ```cs
+            services.AddHttpContextAccessor();
+            services.ConfigureOptions<ConfigureJsonOptions>();
+            services.AddSingleton(typeof(IModelMetadataProvider), typeof(XpoMetadataProvider));
+   ```
+
 * Add [JsonConverters.cs](CS/XpoSerialization/JsonConverters.cs), [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) files to your project. It will help System.Text.Json to support XPO classes. 
 ## Create a Controller
 * Declare a local variable to store the [UnitOfWork](https://documentation.devexpress.com/CoreLibraries/2138) instance passed as a constructor parameter.
