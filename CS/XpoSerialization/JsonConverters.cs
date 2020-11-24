@@ -1,11 +1,12 @@
-﻿using DevExpress.Xpo.Metadata;
+﻿using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DevExpress.Xpo.Helpers {
+namespace XpoSerialization {
     public class PersistentBaseConverter<T> :  JsonConverter<T> where T : PersistentBase {
         IServiceProvider _serviceProvider;
         public PersistentBaseConverter(IServiceProvider serviceProvider) {
