@@ -5,6 +5,8 @@ using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using DevExpress.Xpo;
 using System.Linq;
+using DevExpress.Xpo.Helpers;
+
 namespace XpoSerialization {
 
     internal class ConfigureJsonOptions : IConfigureOptions<JsonOptions>, IServiceProvider {
