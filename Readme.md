@@ -62,7 +62,7 @@ Use the following steps to create a project or refer to the [original tutorial](
 
    ```
 
-* Add [JsonConverters.cs](CS/XpoSerialization/JsonConverters.cs), [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) files to your project. 
+* Add the [XPOJsonOptions.cs](CS/XpoSerialization/XPOJsonOptions.cs) file to your project. 
 ## Create a Controller
 * Declare a local variable to store the [UnitOfWork](https://documentation.devexpress.com/CoreLibraries/2138) instance passed as a constructor parameter.
    ```cs
