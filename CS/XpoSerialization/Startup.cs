@@ -1,8 +1,9 @@
 ﻿using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Helpers;
+using DevExpress.Xpo.Metadata;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,15 +22,18 @@ namespace XpoSerialization
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllersWithViews();
+            services.AddControllers().AddJsonOptions(options => {
+                XPDictionary dictionary = new ReflectionDictionary();
+                dictionary.GetDataStoreSchema(typeof(Customer), typeof(Order));
+                options.JsonSerializerOptions.Converters.Add(new ChangesSetJsonConverterFactory(null));
+                options.JsonSerializerOptions.Converters.Add(new XpoModelJsonConverterFactory(dictionary));
+            });
             services.AddCors();
             services.AddHttpContextAccessor();
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
                 options.UseConnectionString(Configuration.GetConnectionString("MSSqlServer"))
                  //.UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema) // debug only
                 .UseEntityTypes(ConnectionHelper.GetPersistentTypes()));
-            services.ConfigureOptions<ConfigureJsonOptions>();
-            services.AddSingleton(typeof(IModelMetadataProvider), typeof(XpoMetadataProvider));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,10 @@
 ﻿using DevExpress.Xpo;
+using DevExpress.Xpo.Helpers;
+
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using XpoSerialization.DxSampleModel;
 
 namespace XpoSerialization.Controllers {
@@ -13,43 +16,39 @@ namespace XpoSerialization.Controllers {
             this.uow = uow;
         }
         [HttpGet]
-        public IEnumerable Get() {
-            return uow.Query<Customer>();
+        public async Task<IEnumerable<Customer>> Get() {
+            return await uow.Query<Customer>().ToArrayAsync();
         }
         [HttpGet("{id}")]
-        public Customer Get(int id) {
-            return uow.GetObjectByKey<Customer>(id);
+        public async Task<Customer> Get(int id) {
+            return await uow.GetObjectByKeyAsync<Customer>(id);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Customer customer) {
-            try {
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
-            }
+        public async Task<Customer> Post([FromBody] ChangesSet<Customer> customerData) {
+            var customer = new Customer(uow);
+            customerData.Put(uow, customer);
+            await uow.CommitChangesAsync();
+            return customer;
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Customer customer) {
-            if(id != customer.Oid)
+        public async Task<ActionResult<Customer>> Put(int id, [FromBody] ChangesSet<Customer> customerData) {
+            var customer = uow.GetObjectByKey<Customer>(id);
+            if(customer == null) {
                 return NotFound();
-            try {
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
             }
+            customerData.Patch(uow, customer);
+            await uow.CommitChangesAsync();
+            return customer;
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
-            try {
-                Customer customer = uow.GetObjectByKey<Customer>(id);
-                uow.Delete(customer);
-                uow.CommitChanges();
-                return NoContent();
-            } catch(Exception exception) {
-                return BadRequest(exception);
+        public async Task<IActionResult> Delete(int id) {
+            var customer = await uow.GetObjectByKeyAsync<Customer>(id);
+            if(customer == null) {
+                return NotFound();
             }
+            uow.Delete(customer);
+            uow.CommitChanges();
+            return NoContent();
         }
     }
 }
