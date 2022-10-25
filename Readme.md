@@ -20,7 +20,7 @@ You may also be interested in the following examples:
  * .NET Core cross-platform development
  * [.NET Core 3.1 SDK or later](https://www.microsoft.com/net/download)
  
-## Create the project.
+## Create the project
 Use the following steps to create a project or refer to the [original tutorial](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.1) in the Microsoft documentation.
 * From the **File** menu, select **New** > **Project**.
 * Select the **ASP.NET Core Web Application** template and click **Next**. Fill in the **Name** field and click the **Create** button.
