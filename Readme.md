@@ -3,9 +3,11 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T830519)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# An ASP.NET Core Web API CRUD Service
+# How to use XPO persistent objects in ASP.NET Core Web API CRUD Controllers (.NET Core)
 
 When building a [Web API service](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.1), it is convenient to separate your Controller's code from the data access logic. Don't deal with SQL, DB connections, etc. each time you need to extend your API, but use the database-independent object-oriented approach to retrieve data with sorting, filtering and complex data shaping.
+
+> **Note**: It is much easier to use the **[Web API Service](https://docs.devexpress.com/eXpressAppFramework/403394/backend-web-api-service)** with integrated authorization & CRUD operations based on ASP.NET Core OData 8.0 (OData v4) powered by EF Core and XPO ORM library instead. For more information, see [A 1-Click Solution for CRUD Web API Services with Role-based Access Control via EF Core & XPO (FREE)](https://community.devexpress.com/blogs/news/archive/2022/06/20/a-one-click-solution-for-role-based-access-control-asp-net-core-web-api-services-via-entity-framework-core-and-xpo-v22-1.aspx).
 
 The persistent object JSON serialization feature makes it easy to use XPO as a Data Access layer in an ASP.NET Core Web API service. You no longer need to manually format JSON responses or make a POCO copy of each persistent class. This tutorial demonstrates how to enable this feature and implement a few Controllers.
 
