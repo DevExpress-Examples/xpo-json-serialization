@@ -21,7 +21,7 @@ You may also be interested in the following examples:
  Visual Studio 2019 with the following workloads:
  * ASP.NET and web development
  * .NET Core cross-platform development
- * [.NET Core 3.1 SDK or later](https://www.microsoft.com/net/download)
+ * [.NET Core SDK](https://www.microsoft.com/net/download)
  
 ## Create the project
 Use the following steps to create a project or refer to the [original tutorial](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.1) in the Microsoft documentation.
